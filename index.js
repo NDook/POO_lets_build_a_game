@@ -25,17 +25,12 @@ class Entity {
     }
 }
 
-
-
 class Player extends Entity {
     constructor(x, y, radius, color) {
         super(x, y, radius);
         this.color = color;
     }
 }
-
-const player = new Player(canvas.width / 2, canvas.height / 2, 10, "yellow");
-player.draw();
 
 class Projectile extends Player {
     constructor(x, y, radius, color, velocity) {
@@ -50,35 +45,11 @@ class Projectile extends Player {
     }
 }
 
-const projectiles = [];
-    window.addEventListener("click", (event) => {
-        const angle = Math.atan2(
-            event.clientY - player.y,
-            event.clientX - player.x
-        );
-        const velocity = {
-            x: Math.cos(angle) * 5,
-            y: Math.sin(angle) * 5,
-        };
-
-        const projectile = new Projectile(
-            player.x,
-            player.y,
-            5,
-            "white",
-            velocity
-        );
-    projectile.draw();
-    projectiles.push(projectile);
-});
-
 class Enemy extends Projectile {
     constructor(x, y, radius, color, velocity) {
         super(x, y, radius, color, velocity);
     }
 }
-
-const enemies = [];
 
 class Particle extends Enemy {
     constructor(x, y, radius, color, velocity) {
@@ -104,7 +75,33 @@ class Particle extends Enemy {
     }
   }
 
-  const particles = [];
+const player = new Player(canvas.width / 2, canvas.height / 2, 10, "yellow");
+player.draw();
+
+const projectiles = [];
+    window.addEventListener("click", (event) => {
+        const angle = Math.atan2(
+            event.clientY - player.y,
+            event.clientX - player.x
+        );
+        const velocity = {
+            x: Math.cos(angle) * 5,
+            y: Math.sin(angle) * 5,
+        };
+
+        const projectile = new Projectile(
+            player.x,
+            player.y,
+            5,
+            "white",
+            velocity
+        );
+    projectile.draw();
+    projectiles.push(projectile);
+});
+
+const enemies = [];
+const particles = [];
 
 let animationId;
 function animate() {
